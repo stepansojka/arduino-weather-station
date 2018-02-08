@@ -6,46 +6,43 @@
 class Sds
 {
 public:
-
-  enum Status
-  {
-    OK = 0,
-    CHECKSUM_VERIFICATION_FAILED,
-    MESSAGE_HEADER_NOT_FOUND,
-    MESSAGE_FOOTER_NOT_FOUND
-  };
-
   static const unsigned long SDS_021_BAUD = 9600;
 
   Sds(HardwareSerial& serial);
 
   void begin(unsigned long baud = SDS_021_BAUD);
 
-  Status read(float& pm2_5, float& pm10);
+  void read();
 
+  void get(float& pm2_5, float& pm10) const;
 
 private:
-  struct __attribute__ ((packed)) SdsMessage
-  {
-    uint8_t command;
-    uint16_t pm2_5;
-    uint16_t pm10;
-    uint16_t sensor_id;
-    uint8_t checksum;
-  };
 
-  static const size_t MESSAGE_SIZE = sizeof(SdsMessage);
+  static const size_t MESSAGE_SIZE = 6;
 
   HardwareSerial& m_serial;
 
   uint8_t m_buffer[MESSAGE_SIZE];
 
-  bool seek_message_header();
+  size_t m_position;
 
-  void read_message();
+  float m_pm2_5;
+
+  float m_pm10;
+
+  void on_header(uint8_t byte);
+
+  void on_command(uint8_t byte);
+
+  void on_data(uint8_t byte);
+
+  void on_checksum(uint8_t byte);
+
+  void on_footer(uint8_t byte);
 
   uint8_t compute_checksum() const;
-};
 
+  void new_measurement();
+};
 
 #endif

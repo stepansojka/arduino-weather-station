@@ -1,5 +1,35 @@
 #include "Sds.h"
 
+/*
+
+  The stuff sent on the wire looks like this:
+
+  /======================================================\
+  | byte no. | name            | content                 |
+  |======================================================|
+  | 0        | message header  | 0xAA                    |
+  |----------|-----------------|-------------------------|
+  | 1        | command         | 0xC0                    |
+  |----------|-----------------|-------------------------|
+  | 2        | data[0]         | pm 2.5 low byte         |
+  | 3        | data[1]         | pm 2.5 high byte        |
+  |----------|-----------------|-------------------------|
+  | 4        | data[2]         | pm 10 low byte          |
+  | 5        | data[3]         | pm 10 high byte         |
+  |----------|-----------------|-------------------------|
+  | 6        | data[4]         | sensor id low byte      |
+  | 7        | data[5]         | sensor id high byte     |
+  |----------|-----------------|-------------------------|
+  | 8        | checksum        | data[0] + ... + data[5] |
+  |----------|-----------------|-------------------------|
+  | 9        | message footer  | 0xAB                    |
+  \------------------------------------------------------/
+
+  It is sent over serial port once per second.
+
+ */
+
+
 const uint8_t MESSAGE_HEADER_BYTE  = 0xAA;
 const uint8_t MESSAGE_COMMAND_BYTE = 0xC0;
 const uint8_t MESSAGE_FOOTER_BYTE  = 0xAB;

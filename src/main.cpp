@@ -91,7 +91,11 @@ void display_air_quality()
 void loop()
 {
   auto now = millis();
-  auto time = millis() - current_cycle_start;
+
+  if (now < current_cycle_start)
+    current_cycle_start = 0;
+
+  auto time = now - current_cycle_start;
 
   sds.read();
 

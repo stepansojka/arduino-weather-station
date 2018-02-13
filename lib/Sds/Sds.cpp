@@ -37,7 +37,7 @@ void Sds::read()
     }
     else if (m_position < MESSAGE_CHECKSUM_IDX)
     {
-      on_data(c)
+      on_data(c);
     }
     else if (m_position == MESSAGE_CHECKSUM_IDX)
     {
@@ -58,7 +58,7 @@ void Sds::on_header(uint8_t byte)
 
 void Sds::on_command(uint8_t byte)
 {
-  if (byte == MEASUREMENT_COMMAND_BYTE)
+  if (byte == MESSAGE_COMMAND_BYTE)
     ++m_position;
   else
     m_position = 0;
@@ -66,14 +66,14 @@ void Sds::on_command(uint8_t byte)
 
 void Sds::on_data(uint8_t byte)
 {
-  m_buffer[m_position - 2] = c;
+  m_buffer[m_position - 2] = byte;
   ++m_position;
 }
 
 void Sds::on_checksum(uint8_t byte)
 {
   auto checksum = compute_checksum();
-  if (checksum == c)
+  if (checksum == byte)
     ++m_position;
   else
     m_position = 0;
@@ -81,7 +81,7 @@ void Sds::on_checksum(uint8_t byte)
 
 void Sds::on_footer(uint8_t byte)
 {
-  if (c == MESSAGE_FOOTER_BYTE)
+  if (byte == MESSAGE_FOOTER_BYTE)
     new_measurement();
 
   m_position = 0;

@@ -17,12 +17,10 @@ public:
   void get(float& pm2_5, float& pm10) const;
 
 private:
-
   static const size_t MESSAGE_SIZE = 6;
+  uint8_t m_buffer[MESSAGE_SIZE];
 
   HardwareSerial& m_serial;
-
-  uint8_t m_buffer[MESSAGE_SIZE];
 
   size_t m_position;
 

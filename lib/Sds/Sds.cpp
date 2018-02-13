@@ -1,8 +1,9 @@
 #include "Sds.h"
 
 /*
-
-  The stuff sent on the wire looks like this:
+  The SDS sensor sends a packet with the measurement over
+  over serial port once per second. The packet structure
+  looks like this:
 
   /======================================================\
   | byte no. | name            | content                 |
@@ -25,10 +26,7 @@
   | 9        | message footer  | 0xAB                    |
   \------------------------------------------------------/
 
-  It is sent over serial port once per second.
-
- */
-
+*/
 
 const uint8_t MESSAGE_HEADER_BYTE  = 0xAA;
 const uint8_t MESSAGE_COMMAND_BYTE = 0xC0;

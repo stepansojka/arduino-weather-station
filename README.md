@@ -12,7 +12,7 @@ Measuremetnts are displayed on an LCD.
 ## Installing the Dependencies
 The code is built on [PlatformIO](https://platformio.org/). To run the code, you will need to
 [install PlatformIO](http://docs.platformio.org/en/latest/installation.html) first. TL;DR:
-````
+```
 pip install -U platformio
 ```
 

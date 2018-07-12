@@ -56,25 +56,15 @@ void Sds::read()
     auto c = m_serial.read();
 
     if (m_position == MESSAGE_HEADER_IDX)
-    {
       on_header(c);
-    }
     else if (m_position == MESSAGE_COMMAND_IDX)
-    {
       on_command(c);
-    }
     else if (m_position < MESSAGE_CHECKSUM_IDX)
-    {
       on_data(c);
-    }
     else if (m_position == MESSAGE_CHECKSUM_IDX)
-    {
       on_checksum(c);
-    }
     else if (m_position == MESSAGE_FOOTER_IDX)
-    {
       on_footer(c);
-    }
   }
 }
 

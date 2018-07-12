@@ -1,7 +1,8 @@
 # arduino-weather-station
 Dust sensor plus simple weather station built with arduino.
 The station measures the amount of dust in the air, temperature and humidity.
-Measuremetnts are displayed on an LCD.
+Measuremetnts are displayed on an LCD, like so:
+![Breadboard Picture](doc/arduino.png?raw=true "Weather Station")
 
 ## Shopping list
 * [SDS021 Air Quality Sensor](https://www.aliexpress.com/wholesale?catId=0&initiative_id=SB_20180222113508&SearchText=SDS021)
